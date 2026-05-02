@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Una implementación estática de Truco argentino en JavaScript sin frameworks.">
+    <title></title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="table-shell">
+      <section class="scoreboard" aria-label="Marcador de la partida">
+        <div class="brand-block">
+          <span class="brand-mark" aria-hidden="true">T</span>
+          <div>
+            <h1>Truco</h1>
+            <p>Truco argentino.</p>
+          </div>
+        </div>
+
+        <div class="score-columns">
+          <article class="score-card rival">
+            <span class="score-label">Máquina</span>
+            <strong id="bot-score">0</strong>
+            <span id="bot-rounds">0 manos</span>
+          </article>
+          <article class="score-card">
+            <span class="score-label">Vos</span>
+            <strong id="player-score">0</strong>
+            <span id="player-rounds">0 manos</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="table" aria-label="Mesa de Truco">
+        <div class="status-line">
+          <div>
+            <button class="deal-title" id="round-title" type="button">Empezar partida</button>
+          </div>
+          <button class="icon-button" id="new-hand" type="button" aria-label="Repartir una nueva mano" title="Repartir una nueva mano">
+            <span aria-hidden="true">↻</span>
+          </button>
+        </div>
+
+        <div class="played-zone" aria-label="Cartas jugadas">
+          <div class="seat bot-seat">
+            <span>La máquina jugó</span>
+            <div id="bot-played" class="played-card empty">—</div>
+          </div>
+          <div class="mat">
+            <div class="mat-ring"></div>
+            <p id="message">Hacé clic en “Empezar partida” para repartir las cartas.</p>
+          </div>
+          <div class="seat player-seat">
+            <span>Vos jugaste</span>
+            <div id="player-played" class="played-card empty">—</div>
+          </div>
+        </div>
+
+        <div class="actions" aria-label="Acciones de la mano">
+          <button id="call-envido" type="button">Envido</button>
+          <button id="call-truco" type="button">Truco</button>
+          <button id="fold" class="danger" type="button">Ir al mazo</button>
+        </div>
+
+        <div class="actions response-actions hidden" id="response-actions" aria-label="Responder canto">
+          <button id="accept-call" type="button">Quiero</button>
+          <button id="decline-call" class="danger" type="button">No quiero</button>
+        </div>
+
+        <div class="hand-panel">
+          <span class="eyebrow">Tus cartas</span>
+          <div id="player-hand" class="hand" aria-label="Tu mano"></div>
+        </div>
+      </section>
+
+      <aside class="rules-panel" aria-label="Notas del juego">
+        <h2>Notas de la ronda</h2>
+        <dl>
+          <div>
+            <dt>Objetivo</dt>
+            <dd>Primero en llegar a 15 puntos.</dd>
+          </div>
+          <div>
+            <dt>Valor de cartas</dt>
+            <dd>Usa el orden clásico argentino, con el ancho de espadas arriba de todo.</dd>
+          </div>
+        </dl>
+      </aside>
+    </main>
+
+    <template id="card-template">
+      <button class="card" type="button">
+        <span class="card-corner rank"></span>
+        <span class="suit-large"></span>
+        <span class="card-corner suit"></span>
+      </button>
+    </template>
+
+    <script src="src/main.js"></script>
+  </body>
+</html>
