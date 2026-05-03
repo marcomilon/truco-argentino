@@ -1,18 +1,19 @@
 /* ── Variables ──────────────────────────────────────────── */
 :root {
-  --bg:        #0f1810;
-  --surface:   #18261a;
-  --edge:      rgba(255,255,255,0.07);
-  --text:      #ddd4bc;
-  --muted:     #6e6454;
-  --gold:      #c9a84c;
-  --win:       #5ec47e;
-  --lose:      #c45e5e;
-  --parda:     #c9a84c;
-  --card-w:    82px;
-  --card-h:    126px;
-  --radius:    9px;
-  --gap:       10px;
+  --bg:           #0f1810;
+  --surface:      #18261a;
+  --edge:         rgba(255,255,255,0.07);
+  --text:         #ddd4bc;
+  --muted:        #6e6454;
+  --gold:         #c9a84c;
+  --win:          #5ec47e;
+  --lose:         #c45e5e;
+  --parda:        #c9a84c;
+  --card-w:       82px;
+  --card-h:       126px;
+  --radius:       9px;
+  --gap:          10px;
+  --stack-offset: 18px;
 }
 
 /* ── Reset ──────────────────────────────────────────────── */
@@ -236,4 +237,38 @@ body {
   line-height: 1.5;
   min-height: 1.5em;
   padding: 0 8px;
+}
+
+/* ── Desktop scaling ────────────────────────────────────── */
+@media (min-width: 768px) {
+  :root {
+    --card-w: 120px;
+    --card-h: 185px;
+    --radius: 12px;
+    --gap:    14px;
+  }
+
+  #app {
+    max-width: 720px;
+    gap: 24px;
+    padding: 32px 24px 40px;
+  }
+
+  .score-num  { font-size: 52px; }
+  .score-name { font-size: 14px; }
+  .mano-label { font-size: 14px; }
+
+  .btn {
+    font-size: 15px;
+    padding: 11px 28px;
+  }
+
+  #message {
+    font-size: 16px;
+  }
+
+  .dot {
+    width: 13px;
+    height: 13px;
+  }
 }

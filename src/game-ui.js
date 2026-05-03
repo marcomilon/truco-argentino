@@ -59,49 +59,49 @@ function buildMessage(hand) {
   if (!hand) {
     if (game.matchWinner) {
       return game.matchWinner === 'player'
-        ? 'You won the match — press Play Again.'
-        : 'Bot won the match — press Play Again.';
+        ? 'Ganaste el partido — presioná Jugar de nuevo.'
+        : 'El bot ganó el partido — presioná Jugar de nuevo.';
     }
-    return 'Press Deal to start.';
+    return 'Presioná Repartir para empezar.';
   }
 
   if (hand.phase === 'hand-over') {
     const { winner, pointsDelta } = hand;
     const pts = pointsDelta[winner];
-    const side = winner === 'player' ? 'You win' : 'Bot wins';
-    return `${side} the hand (+${pts} pt${pts !== 1 ? 's' : ''}). Press Next Hand.`;
+    const side = winner === 'player' ? 'Ganás la mano' : 'El bot gana la mano';
+    return `${side} (+${pts} pt${pts !== 1 ? 's' : ''}). Presioná Siguiente mano.`;
   }
 
   if (hand.pendingResponder === 'player') {
     const type  = hand.pendingCallType;
     const state = type === 'envido' ? hand.envidoBetting : hand.trucoBetting;
     const call  = state.calls[state.calls.length - 1]?.call ?? type;
-    return `Bot calls ${call} — ${state.quieroPts} pts if quiero, ${state.noQuieroPts} if no quiero.`;
+    return `El bot canta ${call} — ${state.quieroPts} pts si quiero, ${state.noQuieroPts} si no quiero.`;
   }
 
   const e = hand.lastEvent;
-  if (!e) return 'Play a card, or call envido / truco.';
+  if (!e) return 'Jugá una carta, o cantá envido / truco.';
 
   switch (e.type) {
     case 'trick':
-      if (e.winner === 'parda') return 'Parda — play next card.';
-      return e.winner === 'player' ? `You win round ${e.round}.` : `Bot wins round ${e.round}.`;
+      if (e.winner === 'parda') return 'Parda — jugá la siguiente carta.';
+      return e.winner === 'player' ? `Ganás la vuelta ${e.round}.` : `El bot gana la vuelta ${e.round}.`;
     case 'envido-showdown':
-      return `Envido: you ${e.playerScore} — bot ${e.botScore}. ${e.winner === 'player' ? 'You win' : 'Bot wins'} ${e.pts} pt${e.pts !== 1 ? 's' : ''}.`;
+      return `Envido: vos ${e.playerScore} — bot ${e.botScore}. ${e.winner === 'player' ? 'Ganás' : 'El bot gana'} ${e.pts} pt${e.pts !== 1 ? 's' : ''}.`;
     case 'envido-declined':
-      return `You declined. Bot gets ${e.pts} pt${e.pts !== 1 ? 's' : ''}.`;
+      return `No quisiste. El bot gana ${e.pts} pt${e.pts !== 1 ? 's' : ''}.`;
     case 'envido-declined-by-bot':
-      return `Bot declined. You get ${e.pts} pt${e.pts !== 1 ? 's' : ''}.`;
+      return `El bot no quiso. Ganás ${e.pts} pt${e.pts !== 1 ? 's' : ''}.`;
     case 'truco-accepted':
-      return `Quiero — this hand is worth ${e.stake} pts.`;
+      return `Quiero — esta mano vale ${e.stake} pts.`;
     case 'truco-declined':
-      return `No quiero — ${e.pts} pt${e.pts !== 1 ? 's' : ''} awarded.`;
+      return `No quiero — ${e.pts} pt${e.pts !== 1 ? 's' : ''} otorgados.`;
     case 'fold':
-      return `You folded. Bot gets ${e.pts} pt${e.pts !== 1 ? 's' : ''}.`;
+      return `Te fuiste. El bot gana ${e.pts} pt${e.pts !== 1 ? 's' : ''}.`;
     case 'flor':
-      return e.winner === 'player' ? 'Flor — you win 3 pts.' : 'Bot has flor — 3 pts to bot.';
+      return e.winner === 'player' ? '¡Flor! — ganás 3 pts.' : 'El bot tiene flor — 3 pts para el bot.';
     default:
-      return 'Play a card, or call envido / truco.';
+      return 'Jugá una carta, o cantá envido / truco.';
   }
 }
 
@@ -120,7 +120,7 @@ function renderScoreboard(hand) {
   el('player-score').textContent = game.playerScore;
   el('bot-score').textContent    = game.botScore;
   el('mano-label').textContent   = hand
-    ? (hand.manoSide === 'player' ? '★ you are mano' : '★ bot is mano')
+    ? (hand.manoSide === 'player' ? '★ sos mano' : '★ el bot es mano')
     : '';
 }
 
@@ -197,8 +197,8 @@ function renderControls(hand) {
 
   // Deal / Next Hand / Play Again
   setVisible('btn-deal', noHand || handOver);
-  el('btn-deal').textContent = game.matchWinner ? 'Play Again'
-    : handOver ? 'Next Hand' : 'Deal';
+  el('btn-deal').textContent = game.matchWinner ? 'Jugar de nuevo'
+    : handOver ? 'Siguiente mano' : 'Repartir';
 
   // Action buttons
   setVisible('btn-envido', canAct && !!hand.envidoAvailable);
